@@ -14,6 +14,13 @@
       <section class="container">
         <nav role="navigation">
           <ul>
+            <%= if Pow.Plug.current_user(@conn) do %>
+              <span><%= @current_user.email %></span>
+              <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+            <% else %>
+              <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+              <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+            <% end %>
             <li>
               <%= link "bookmarks", to: Routes.bookmark_path(@conn, :index) %>
             </li>
