@@ -1,0 +1,48 @@
+<h1>Show Bookmark</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @bookmark.title %>
+  </li>
+
+  <li>
+    <strong>Address:</strong>
+    <%= @bookmark.address %>
+  </li>
+
+  <li>
+    <strong>Private:</strong>
+    <%= @bookmark.private %>
+  </li>
+
+  <li>
+    <strong>Archive page:</strong>
+    <%= @bookmark.archive_page %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @bookmark.description %>
+  </li>
+
+  <li>
+    <strong>Hashed url:</strong>
+    <%= @bookmark.hashed_url %>
+  </li>
+
+  <li>
+    <strong>Is archived:</strong>
+    <%= @bookmark.is_archived %>
+  </li>
+
+  <li>
+    <strong>Archive url:</strong>
+    <%= @bookmark.archive_url %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.bookmark_path(@conn, :edit, @bookmark) %></span>
+<span><%= link "Back", to: Routes.bookmark_path(@conn, :index) %></span>
