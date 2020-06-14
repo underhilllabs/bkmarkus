@@ -18,7 +18,7 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
   @doc false
   def changeset(bookmark, attrs) do
     bookmark
-    |> cast(attrs, [:title, :address, :private, :archive_page, :description, :hashed_url, :is_archived, :archive_url])
-    |> validate_required([:title, :address, :private, :archive_page])
+    |> cast(attrs, [:title, :address, :private, :archive_page, :description, :hashed_url, :is_archived, :archive_url, :user_id])
+    |> validate_required([:title, :address, :user_id])
   end
 end
