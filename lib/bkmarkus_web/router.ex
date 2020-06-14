@@ -11,6 +11,11 @@ defmodule BkmarkusWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -23,10 +28,16 @@ defmodule BkmarkusWeb.Router do
   end
 
   scope "/", BkmarkusWeb do
+    pipe_through [:browser, :protected]
+
+    resources "/bookmarks", BookmarkController, except: [:index]
+  end
+
+  scope "/", BkmarkusWeb do
     pipe_through :browser
 
     live "/", PageLive, :index
-    resources "/bookmarks", BookmarkController
+    resources "/bookmarks", BookmarkController, only: [:index]
   end
 
   # Other scopes may use custom stacks.
@@ -45,7 +56,7 @@ defmodule BkmarkusWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through [:browser, :protected]
       live_dashboard "/dashboard", metrics: BkmarkusWeb.Telemetry
     end
   end

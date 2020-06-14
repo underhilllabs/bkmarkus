@@ -18,7 +18,7 @@ defmodule Bkmarkus.Bookmarks do
 
   """
   def list_bookmarks do
-    Repo.all(Bookmark)
+    Repo.all(Bookmark) |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +35,9 @@ defmodule Bkmarkus.Bookmarks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_bookmark!(id), do: Repo.get!(Bookmark, id)
+  def get_bookmark!(id) do
+    Repo.get!(Bookmark, id) |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a bookmark.

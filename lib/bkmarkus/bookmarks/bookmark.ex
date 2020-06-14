@@ -11,7 +11,7 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
     field :is_archived, :boolean, default: false
     field :private, :boolean, default: false
     field :title, :string
-
+    belongs_to :user, Bkmarkus.Users.User
     timestamps()
   end
 

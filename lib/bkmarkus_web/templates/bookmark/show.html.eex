@@ -13,6 +13,11 @@
   </li>
 
   <li>
+    <strong>Bookmarked by:</strong>
+    <%= @bookmark.user.email %>
+  </li>
+
+  <li>
     <strong>Private:</strong>
     <%= @bookmark.private %>
   </li>

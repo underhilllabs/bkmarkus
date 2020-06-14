@@ -37,6 +37,7 @@
   <%= text_input f, :archive_url %>
   <%= error_tag f, :archive_url %>
 
+  <%= hidden_input f, :user_id, value: @current_user.id %>
   <div>
     <%= submit "Save" %>
   </div>
