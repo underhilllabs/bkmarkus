@@ -1,0 +1,36 @@
+.bookmark-wrapper {
+    padding-bottom: 1em;
+    padding-top: 1em;
+    border-bottom: 1px #777 dashed;
+    .bookmark-title {
+       font-size: $h3-font-size;
+       line-height: $base-line-height;
+    }
+    .bookmark-tags {
+       font-size: $h5-font-size;
+       a {
+          padding-right: 0.35em;
+          color: $burnt-orange;
+       }
+    }
+    .bookmark-updated {
+       background-color: #eee;
+       padding: 0.05em 0.4em 0.2em 0.4em;
+    }
+    .bookmark-details {
+       font-size: $h5-font-size;
+    }
+    .bookmark-desc {
+       font-size: $h5-font-size;
+    }
+    .bookmark-ops {
+        a {
+           padding-left: 0.7em;
+           color: #555;
+           text-decoration: none;
+           &:hover {
+              text-decoration: underline;
+           }
+        }
+    }
+} 

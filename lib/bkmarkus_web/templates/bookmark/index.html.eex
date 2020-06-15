@@ -1,40 +1,26 @@
 <h1>Listing Bookmarks</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Address</th>
-      <th>Private</th>
-      <th>Archive page</th>
-      <th>Description</th>
-      <th>Hashed url</th>
-      <th>Is archived</th>
-      <th>Archive url</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for bookmark <- @bookmarks do %>
-    <tr>
-      <td><%= bookmark.title %></td>
-      <td><%= bookmark.address %></td>
-      <td><%= bookmark.private %></td>
-      <td><%= bookmark.archive_page %></td>
-      <td><%= bookmark.description %></td>
-      <td><%= bookmark.hashed_url %></td>
-      <td><%= bookmark.is_archived %></td>
-      <td><%= bookmark.archive_url %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.bookmark_path(@conn, :show, bookmark) %></span>
-        <span><%= link "Edit", to: Routes.bookmark_path(@conn, :edit, bookmark) %></span>
-        <span><%= link "Delete", to: Routes.bookmark_path(@conn, :delete, bookmark), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<div class=main-wrapper>
+  <%= for bookmark <- @bookmarks do %>
+    <%= if (bookmark.user == @current_user ||  bookmark.private == false) do %>
+      <div class="bookmark-wrapper bookmark private-<%= bookmark.private %>">
+        <div class="bookmark-title"><a href="<%= bookmark.address %>"><%= bookmark.title %></a></div>
+            <div class="bookmark-description"><%= bookmark.description %></div>
+            <div class="bookmark-details"><%= bookmark.inserted_at |> Timex.format!("{Mfull} {D}, {YYYY}") %> by <%= bookmark.user.email %> 
+            <%= if bookmark.updated_at != bookmark.inserted_at do %>
+            <span class="bookmark-updated-at">[ Last updated at: <%= bookmark.updated_at |> Timex.format!("{Mfull} {D}, {YYYY}") %> ]</span>
+            <% end %>
+            <%= if @current_user == bookmark.user do %>
+              <%= link "Edit", to: Routes.bookmark_path(@conn, :edit, bookmark), class: "xbtn xbtn-default xbtn-xs" %>
+              <%= link "Delete", to: Routes.bookmark_path(@conn, :delete, bookmark), method: :delete, data: [confirm: "Are you sure?"], class: "xbtn xbtn-default xbtn-xs" %>
+              <%= if bookmark.archive_page do %>
+                <a href="/bookmarks/archive/<%= bookmark.id %>">View Archive</a>
+              <% end %>
+            <% end %>
+            </div>
+        </div>
+      <% end %>
+  <% end %>
+</div>
 
 <span><%= link "New Bookmark", to: Routes.bookmark_path(@conn, :new) %></span>
