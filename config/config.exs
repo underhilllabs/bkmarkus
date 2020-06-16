@@ -29,7 +29,8 @@ config :phoenix, :json_library, Jason
 # Use Pow for Authentication and Authorization
 config :bkmarkus, :pow,
   user: Bkmarkus.Users.User,
-  repo: Bkmarkus.Repo
+  repo: Bkmarkus.Repo,
+  web_module: BkmarkusWeb
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
