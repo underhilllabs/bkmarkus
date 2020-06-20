@@ -12,6 +12,10 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
     field :private, :boolean, default: false
     field :title, :string
     belongs_to :user, Bkmarkus.Users.User
+    many_to_many :tags, Bkmarkus.Bookmarks.Tag, 
+      join_through: "bookmarks_tags",
+      on_replace: :delete
+
     timestamps()
   end
 
@@ -34,7 +38,7 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
   end
 
   defp get_or_insert_tag(name) do
-    Bkmarkus.Bookmarks.Repo.get_by(Bkmarkus.Bookmarks.Tag, name: name) ||
-      Bkmarkus.Bookmarks.Repo.insert!(%Bkmarkus.Bookmarks.Tag{name: name})
+    Bkmarkus.Repo.get_by(Bkmarkus.Bookmarks.Tag, name: name) ||
+      Bkmarkus.Repo.insert!(%Bkmarkus.Bookmarks.Tag{name: name})
   end
 end

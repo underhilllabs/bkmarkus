@@ -18,7 +18,7 @@ defmodule Bkmarkus.Bookmarks do
 
   """
   def list_bookmarks do
-    Repo.all(Bookmark) |> Repo.preload(:user)
+    Repo.all(Bookmark) |> Repo.preload(:user) |> Repo.preload(:tags)
   end
 
   @doc """
@@ -36,7 +36,7 @@ defmodule Bkmarkus.Bookmarks do
 
   """
   def get_bookmark!(id) do
-    Repo.get!(Bookmark, id) |> Repo.preload(:user)
+    Repo.get!(Bookmark, id) |> Repo.preload(:user) |> Repo.preload(:tags)
   end
 
   @doc """
@@ -103,4 +103,12 @@ defmodule Bkmarkus.Bookmarks do
   def change_bookmark(%Bookmark{} = bookmark, attrs \\ %{}) do
     Bookmark.changeset(bookmark, attrs)
   end
+
+  def tag_link(tagstr) do
+    tagstr
+    |> Enum.map(&(&1.name))
+    |> Enum.map(&("<span><a href='/tags/name/#{&1}'>#{&1}</a></span>"))
+    |> Enum.join(" ")
+  end
+
 end
