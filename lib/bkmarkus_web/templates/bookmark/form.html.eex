@@ -17,6 +17,10 @@
   <%= textarea f, :description %>
   <%= error_tag f, :description %>
 
+  <%= label f, :tags %>
+  <%= text_input f, :tags %>
+  <%= error_tag f, :tags %>
+
   <%= label f, :private %>
   <%= checkbox f, :private %>
   <%= error_tag f, :private %>
