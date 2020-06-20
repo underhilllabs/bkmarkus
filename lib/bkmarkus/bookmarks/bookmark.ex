@@ -22,7 +22,7 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
     bookmark
     |> cast(attrs, [:title, :address, :private, :archive_page, :description, :hashed_url, :is_archived, :archive_url, :user_id])
     |> validate_required([:title, :address, :user_id])
-    |> Ecto.Changeset.put_assoc(:tags, parse_tags(params))
+    |> Ecto.Changeset.put_assoc(:tags, parse_tags(attrs))
   end
 
   defp parse_tags(params)  do
@@ -34,7 +34,7 @@ defmodule Bkmarkus.Bookmarks.Bookmark do
   end
 
   defp get_or_insert_tag(name) do
-    Bkmarkus.Bookmarks.Repo.get_by(Bookmarkus.Bookmarks.Tag, name: name) ||
-      Bkmarkus.Bookmarks.Repo.insert!(%Bookmarkus.Bookmarks{name: name})
+    Bkmarkus.Bookmarks.Repo.get_by(Bkmarkus.Bookmarks.Tag, name: name) ||
+      Bkmarkus.Bookmarks.Repo.insert!(%Bkmarkus.Bookmarks.Tag{name: name})
   end
 end
